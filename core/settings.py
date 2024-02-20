@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     ### API ##
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
     # FOR API AUTHENTICATION
     'rest_framework_simplejwt',
@@ -52,7 +53,10 @@ INSTALLED_APPS = [
 
 ########## FOR API AUTHENTICATION ##########
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 # AUTH SETTING
