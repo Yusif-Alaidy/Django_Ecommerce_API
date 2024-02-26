@@ -6,7 +6,7 @@ from rest_framework.permissions         import IsAuthenticated
 from rest_framework.authtoken.models    import Token
 from django.contrib.auth.models         import User
 from django.contrib.auth.hashers        import make_password
-from django.contrib.auth                import authenticate, login
+from django.contrib.auth                import authenticate
 
 from accounts.serializers               import *
 
@@ -51,9 +51,7 @@ def userLogin(request):
     user     = authenticate(request, username=username, password=password)
     
     if user is not None:
-        login(request, user)
         token,_ = Token.objects.get_or_create(user=user)
         return Response({'token':token.key}, status=status.HTTP_200_OK)
     else:
         return Response({'error':'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
-    
