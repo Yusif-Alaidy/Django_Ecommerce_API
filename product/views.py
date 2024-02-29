@@ -56,7 +56,7 @@ def get_by_id_product(request,pk):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated,IsAdminUser])
+@permission_classes([IsAuthenticated])
 def new_product(request):
     data = request.data
     serializer = ProductSerializer(data = data)
@@ -71,7 +71,7 @@ def new_product(request):
     
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated,IsAdminUser])
+@permission_classes([IsAuthenticated])
 def update_product(request,pk):
     product = get_object_or_404(Product,id=pk)
 
@@ -80,7 +80,7 @@ def update_product(request,pk):
                         , status=status.HTTP_403_FORBIDDEN)
     
     product.name = request.data['name']
-    product.description = request.data['description']
+    product.descriptions = request.data['descriptions']
     product.price = request.data['price']
     product.brand = request.data['brand']
     product.category = request.data['category']
