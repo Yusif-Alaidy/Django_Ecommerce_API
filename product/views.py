@@ -21,7 +21,7 @@ def get_all_products(request):
     ########## PAGINATOR ##########
     paginator              = PageNumberPagination()
     ### page_size
-    paginator.page_size    = 2
+    paginator.page_size    = 5
     ### query_set
     queryset               = paginator.paginate_queryset(filterset.qs, request) 
     
@@ -118,7 +118,7 @@ def create_review(request,pk):
     # connect user with product.review 
     review  = product.reviews.filter(user=user)
     # if user write a less for 0 or top for 5 
-    if data['rating'] <= 0 or data['rating'] > 5:
+    if int(data['rating']) < 0 or int(data['rating']) > 5:
         return Response({"error":'Please select between 1 to 5 only'}
                         ,status=status.HTTP_400_BAD_REQUEST) 
     elif review.exists():
