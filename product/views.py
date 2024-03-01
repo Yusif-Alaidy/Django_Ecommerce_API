@@ -90,3 +90,17 @@ def update_product(request,pk):
     product.save()
     serializer = ProductSerializer(product,many=False)
     return Response({"product":serializer.data})
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_product(request,pk):
+    product = get_object_or_404(Product,id=pk)
+
+    if product.user != request.user:
+        return Response({"error":"Sorry you can not update this product"}
+                        , status=status.HTTP_403_FORBIDDEN)
+    
+    product.delete()
+
+    return Response({"Details":"Delete action is done"}, status=status.HTTP_200_OK)
