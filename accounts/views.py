@@ -135,7 +135,7 @@ def reset_password(request,token):
     user.profile.reset_password_token = ''
     user.profile.reset_password_expire = None
     # save changed
-    user.profile.save() 
+    user.profile.save()
     user.save()
     return Response({'details': 'Password reset done '})
     
