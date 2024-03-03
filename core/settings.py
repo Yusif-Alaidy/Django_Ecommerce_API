@@ -87,8 +87,6 @@ MIDDLEWARE = [
 ########## Sending email ##########
 # Django Settings
 # EMAIL_BACKEND       =  'django.core.mail.backends.stmp.EmailBackend'
-EMAIL_BACKEND       = "django.core.mail.backends.console.EmailBackend"
-
 # Data
 EMAIL_HOST          = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER     = '8b47fd29142ae8'
