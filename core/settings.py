@@ -83,6 +83,23 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+########## Sending email ##########
+# Django Settings
+# EMAIL_BACKEND       =  'django.core.mail.backends.stmp.EmailBackend'
+EMAIL_BACKEND       = "django.core.mail.backends.console.EmailBackend"
+
+# Data
+EMAIL_HOST          = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER     = '8b47fd29142ae8'
+EMAIL_HOST_PASSWORD = '2770c22cf77265'
+EMAIL_PORT          = '2525'
+# Host sending
+EMAIL_USR_TLS: False
+EMAIL_USE_SSL: False
+########## End Sending email ##########
+
+
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
