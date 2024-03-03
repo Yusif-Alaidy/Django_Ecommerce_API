@@ -121,17 +121,20 @@ def forgot_password(request):
 @api_view(['POST'])
 def reset_password(request,token):
     data = request.data
+    # get user with this token
     user = get_object_or_404(User,profile__reset_password_token = token)
-
+    # make expire for url
     if user.profile.reset_password_expire.replace(tzinfo=None) < datetime.now():
         return Response({'error': 'Token is expired'},status=status.HTTP_400_BAD_REQUEST)
-    
+    # check if password = confirmPassword
     if data['password'] != data['confirmPassword']:
         return Response({'error': 'Password are not same'},status=status.HTTP_400_BAD_REQUEST)
-    
+    # create a new password
     user.password = make_password(data['password'])
+    # reser token and expire to None
     user.profile.reset_password_token = ''
-    user.profile.reset_password_expire = None 
+    user.profile.reset_password_expire = None
+    # save changed
     user.profile.save() 
     user.save()
     return Response({'details': 'Password reset done '})
