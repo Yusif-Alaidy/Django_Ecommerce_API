@@ -104,10 +104,12 @@ def forgot_password(request):
     user.profile.reset_password_token  = token
     user.profile.reset_password_expire = expire_data
     user.profile.save()
-    #
+    # use fun to return dinamic current host
     host = get_current_host(request)
     link = "{host}api/reset_password/token/".format(host=host)
+    # create a message with current host
     body = "Your password reset link is : {link}".format(link=link)
+    # send email field
     send_mail(
         "password reset",
         body,
