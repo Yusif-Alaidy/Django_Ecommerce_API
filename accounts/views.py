@@ -106,7 +106,7 @@ def forgot_password(request):
     user.profile.save()
     # use fun to return dinamic current host
     host = get_current_host(request)
-    link = "{host}api/reset_password/{token}/".format(host=host, token=token)
+    link = "{host}api/reset_password/{token}".format(host=host, token=token)
     # create a message with current host
     body = "Your password reset link is : {link}".format(link=link)
     # send email field
@@ -130,7 +130,7 @@ def reset_password(request,token):
         return Response({'error': 'Password are not same'},status=status.HTTP_400_BAD_REQUEST)
     
     user.password = make_password(data['password'])
-    user.profile.reset_password_token = ""
+    user.profile.reset_password_token = ''
     user.profile.reset_password_expire = None 
     user.profile.save() 
     user.save()
