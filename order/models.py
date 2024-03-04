@@ -42,8 +42,8 @@ class OrderItem(models.Model):
     product     = models.ForeignKey     (Product, null=True, on_delete=models.SET_NULL)
     order       = models.ForeignKey     (Order, null=True, on_delete=models.CASCADE,related_name='orderitems')
     name        = models.CharField      (max_length=200, default="", blank=False)
-    quantity    = models.IntegerField   ( default=1 )
-    price       = models.DecimalField   ( max_digits=7, decimal_places=2,blank=False )
+    quantity    = models.IntegerField   (default=1)
+    price       = models.DecimalField   (max_digits=7, decimal_places=2, blank=False)
 
     def __str__(self):
         return self.name
