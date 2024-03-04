@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # Apps
     'product',
     'accounts',
+    'order,'
 ]
 
 ########## FOR API AUTHENTICATION ##########
