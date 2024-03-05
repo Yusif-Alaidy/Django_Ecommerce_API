@@ -16,7 +16,7 @@ def new_order(request):
     data        = request.data
     order_items = data['order_Items']
 
-    if order_items and len(order_items) == 0:
+    if len(order_items) == 0:
         return Response({'error': 'No order recieved'},status=status.HTTP_400_BAD_REQUEST)
     else:
         total_amount = sum( item['price']* item['quantity'] for item in order_items)
