@@ -19,8 +19,7 @@ def get_orders(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_order(request,pk):
-    order =get_object_or_404(Order, id=pk)
-
+    order      = get_object_or_404(Order, id=pk)
     serializer = OrderSerializer(order,many=False)
     return Response({'order':serializer.data})
 
