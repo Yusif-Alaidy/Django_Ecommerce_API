@@ -33,6 +33,15 @@ def process_order(request,pk):
     return Response({'order':serializer.data})
 
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_order(request,pk):
+    order = get_object_or_404(Order, id=pk) 
+    order.delete()      
+    return Response({'details': "order is deleted"})
+
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def new_order(request):
