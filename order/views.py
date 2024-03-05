@@ -9,6 +9,13 @@ from .serializers               import OrderSerializer
 from .models                    import Order,OrderItem
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_orders(request):
+    orders     = Order.objects.all()
+    serializer = OrderSerializer(orders,many=True)
+    return Response({'orders':serializer.data})
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def new_order(request):
