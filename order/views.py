@@ -23,6 +23,15 @@ def get_order(request,pk):
     serializer = OrderSerializer(order,many=False)
     return Response({'order':serializer.data})
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated,IsAdminUser])
+def process_order(request,pk):
+    order        = get_object_or_404(Order, id=pk)
+    order.status = request.data['status']
+    order.save()     
+    serializer   = OrderSerializer(order,many=False)
+    return Response({'order':serializer.data})
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
