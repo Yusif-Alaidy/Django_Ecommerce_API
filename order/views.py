@@ -28,11 +28,16 @@ def get_order(request,pk):
 def process_order(request,pk):
     order        = get_object_or_404(Order, id=pk)
     data         = request.data
+    process = ['Processing', 'Shipped', 'Delivered']
     if data:
-        order.status = data['status']
-        order.save()
+        str = (data['status']).title()
+        if str in process:
+            order.status = data['status']
+            order.save()
+        else:
+            return Response({"error":"chose in this choices [Processing, Shipped, Delivered] "})
     else:
-        return Response({"error":"we need status"})
+        return Response({"detail":"we need status"})
     serializer   = OrderSerializer(order,many=False)
     return Response({'order':serializer.data})
 
