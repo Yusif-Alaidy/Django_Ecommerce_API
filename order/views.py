@@ -24,11 +24,15 @@ def get_order(request,pk):
     return Response({'order':serializer.data})
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated,IsAdminUser])
+@permission_classes([IsAuthenticated])
 def process_order(request,pk):
     order        = get_object_or_404(Order, id=pk)
-    order.status = request.data['status']
-    order.save()     
+    data         = request.data
+    if data:
+        order.status = data['status']
+        order.save()
+    else:
+        return Response({"error":"we need status"})
     serializer   = OrderSerializer(order,many=False)
     return Response({'order':serializer.data})
 
@@ -38,14 +42,14 @@ def process_order(request,pk):
 def delete_order(request,pk):
     order = get_object_or_404(Order, id=pk) 
     order.delete()      
-    return Response({'details': "order is deleted"})
+    return Response({'details': "order status is requirement"})
 
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def new_order(request):
-    user        = request.user 
+    user        = request.user
     data        = request.data
     order_items = data['order_Items']
 
